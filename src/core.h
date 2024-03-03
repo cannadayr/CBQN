@@ -1,5 +1,13 @@
 #pragma once
 
+#ifdef CBQN_ALLOC_PREFIX
+#define CBQN_CONCAT(prefix, func) prefix##func
+#define CBQN_EXPAND(prefix, func) CBQN_CONCAT(prefix, func)
+#define malloc(...) CBQN_EXPAND(CBQN_ALLOC_PREFIX, _malloc)(__VA_ARGS__)
+#define malloc_usable_size(...) CBQN_EXPAND(CBQN_ALLOC_PREFIX, _malloc_usable_size)(__VA_ARGS__)
+#define free(...) CBQN_EXPAND(CBQN_ALLOC_PREFIX, _free)(__VA_ARGS__)
+#endif
+
 #include "h.h"
 #include "core/stuff.h"
 
